@@ -32,11 +32,11 @@ jobs:
         run: docker build . --file Dockerfile --tag $IMAGE_NAME:latest
       - name: Push to Docker Hub
         run:|
-        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD}}
-        IMAGE_NAME=$(echo $IMAGE_NAME | tr '[A-Z]' '[a-z]')
-        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-        [ [ "${{ github.ref }}" == "refs/tags/"* ] ] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-        [ "$VERSION" == "main" ] && VERSION=latest
-        docker tag $IMAGE_NAME:latest $IMAGE_NAME:$VERSIONx
-        docker push $IMAGE_NAME:latest
-        docker push $IMAGE_NAME:$VERSION
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD}}
+          IMAGE_NAME=$(echo $IMAGE_NAME | tr '[A-Z]' '[a-z]')
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          [ [ "${{ github.ref }}" == "refs/tags/"* ] ] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          [ "$VERSION" == "main" ] && VERSION=latest
+          docker tag $IMAGE_NAME:latest $IMAGE_NAME:$VERSIONx
+          docker push $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$VERSION

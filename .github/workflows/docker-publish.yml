@@ -31,8 +31,8 @@ jobs:
       - name: Push to Docker Hub
         uses: docker/build-push-action@v1
         with:
-          username: ${{ dockerhub.DOCKER_USERNAME }}
-          password: ${{ dockerhub.DOCKER_PASSWORD }}
+          username: ${{ secrets.dockerhub.DOCKER_USERNAME }}
+          password: ${{ secrets.dockerhub.DOCKER_PASSWORD }}
           repository: numb95/gooni-api
           tag_with_ref: true
 

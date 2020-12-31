@@ -6,5 +6,5 @@
 ![LICENSE](https://img.shields.io/github/license/numb95/gooni-api?style=for-the-badge)
 ![SIZE](https://img.shields.io//github/repo-size/numb95/gooni-api?style=for-the-badge)
 ![IMGSIZE](https://img.shields.io/docker/image-size/numb95/gooni-api/latest?style=for-the-badge)
-
+![WORKFLOW STATUS](https://img.shields.io//github/workflow/status/numb95/gooni-api/docker?style=for-the-badge)
 A personal daily planner API written in Go

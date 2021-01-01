@@ -1,0 +1,28 @@
+name: HTTP Test
+on:
+  push:
+    branches:
+      - *
+    tags:
+      - v*
+  pull_request:
+env:
+  IMAGE_NAME: numb95/gooni-api
+  CONTAINER_NAME: gooni-api-test
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: build tests image
+        run: docker build . --file Dockerfile -t $IMAGE_NAME
+      - name: run test image
+        run: docker run -d --name $CONTAINER_NAME -p 8080:8080 $IMAGE_NAME
+      - name: get 200 status
+        run: |
+          CURL_OUTPUT=$(curl -s http://127.0.0.1:8080/ping | jq '.message')
+          if [ "$CURL_OUTPUT" == "\"pong\"" ];then
+            exit 0
+          else
+            exit 1
+          fi

@@ -17,8 +17,11 @@ jobs:
       - name: build tests image
         run: docker build . --file Dockerfile -t $IMAGE_NAME
       - name: run test image
-        run: docker run -d --name $CONTAINER_NAME -p 8080:8080 $IMAGE_NAME
+        run: |
+          docker run -d --name $CONTAINER_NAME -p 8080:8080 $IMAGE_NAME
+          docker ps
+
       - name: get 200 status
         run: |
-          curl http://127.0.0.1:8080
+          curl http://0.0.0.0:8080
           curl --write-out '%{http_code}' --silent --output /dev/null http://127.0.0.1:8080 -f

@@ -20,9 +20,5 @@ jobs:
         run: docker run -d --name $CONTAINER_NAME -p 8080:8080 $IMAGE_NAME
       - name: get 200 status
         run: |
-          CURL_OUTPUT=$(curl -s http://127.0.0.1:8080/ping | jq '.message')
-          if [ "$CURL_OUTPUT" == "\"pong\"" ];then
-            exit 0
-          else
-            exit 1
-          fi
+          curl --write-out '%{http_code}' --silent --output /dev/null http://127.0.0.1:8080 -f
+          

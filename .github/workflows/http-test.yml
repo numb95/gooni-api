@@ -20,5 +20,5 @@ jobs:
         run: docker run -d --name $CONTAINER_NAME -p 8080:8080 $IMAGE_NAME
       - name: get 200 status
         run: |
+          curl http://127.0.0.1:8080
           curl --write-out '%{http_code}' --silent --output /dev/null http://127.0.0.1:8080 -f
-          

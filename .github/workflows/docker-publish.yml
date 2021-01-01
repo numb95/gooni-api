@@ -23,7 +23,7 @@ jobs:
           fi
   push_to_registry:
     needs: test
-    name: Push Docker image to Docker Hub
+    name: Build and push
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -37,7 +37,7 @@ jobs:
         run: |
           IMAGE_NAME=$(echo $IMAGE_NAME | tr '[A-Z]' '[a-z]')
           docker build . --file Dockerfile --tag $IMAGE_NAME
-      - name: Push to Docker Hub
+      - name: Push amd64 image to Dockerhub
         run: |
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           echo $VERSION
@@ -50,7 +50,7 @@ jobs:
           docker tag $IMAGE_NAME:$VERSION $IMAGE_NAME:latest
           docker push $IMAGE_NAME:$VERSION
           docker push $IMAGE_NAME:latest
-      - name: Build arm64, arm7, arm6 , linux/386
+      - name: Build and push arm64, arm7, arm6, linux/386
         run: |
           IMAGE_NAME=$(echo $IMAGE_NAME | tr '[A-Z]' '[a-z]')
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
